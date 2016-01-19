@@ -1,12 +1,1207 @@
 <html>
-<head>
+	<head>
+		<style>
+			.MazeBox{
+				width:605px;
+				height:500px;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-250px 0 0 -302px;
+				z-index:1;
+			}
 
-</head>
-<body>
+			.cells{
+				cursor:crosshair;
+			}
+			#MazeBorders{
+				background-color:black;
+				z-index:2;
+				width:605px;
+				height:500px;
+				position:absolute;
+				left:0px;
+				top:0px;"
+			}
 
-<div class="border" style="position:absolute;left:20px;top:20px;height:5px;length:50px;background-color:black;">.</div>
+			#winpopup {
+				display: none;
+				background-color:#0e83cd;
+				color:white;
+				text-align:center;
+				width:605px;
+				height:500px;
+				overflow:auto;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-250px 0 0 -302px;
+				z-index:10;
+			}
+
+			#losepopup {
+				display: none;
+				background-color:#0e83cd;
+				color:white;
+				text-align:center;
+				width:605px;
+				height:500px;
+				overflow:auto;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-250px 0 0 -302px;
+				z-index:10;
+			}
+
+			#cheatpopup {
+				display: none;
+				background-color:#0e83cd;
+				color:white;
+				text-align:center;
+				width:605px;
+				height:500px;
+				overflow:auto;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-250px 0 0 -302px;
+				z-index:10;
+			}
+
+			#startpopup {
+				display: none;
+				background-color:#0e83cd;
+				color:white;
+				text-align:center;
+				width:605px;
+				height:500px;
+				overflow:auto;
+				position:absolute;
+				left:50%;
+				top:50%;
+				margin:-250px 0 0 -302px;
+				z-index:10;
+			}
+
+			.btn {
+				border: none;
+				font-family: inherit;
+				font-size: inherit;
+				color: inherit;
+				background: none;
+				cursor: pointer;
+				padding: 25px 80px;
+				display: inline-block;
+				margin: 15px 30px;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				font-weight: 700;
+				outline: none;
+				position: relative;
+				-webkit-transition: all 0.3s;
+				-moz-transition: all 0.3s;
+				transition: all 0.3s;
+			}
+
+			.btn:after {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				-webkit-transition: all 0.3s;
+				-moz-transition: all 0.3s;
+				transition: all 0.3s;
+			}
+
+			.btn:after {
+				width: 0%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: #fff;
+			}
+
+			.btn:hover,
+			.btn:active {
+				color: #0e83cd;
+			}
+
+			.btn:hover:after,
+			.btn:active:after {
+				width: 100%;
+			}
+
+		</style>
+		<script type="text/javascript">
+			function show_win() {
+				document.getElementById('winpopup').style.display="block";
+			}
+
+			function hide_win() {
+				document.getElementById('winpopup').style.display="none";
+			}
+
+			function show_lose() {
+    				document.getElementById('losepopup').style.display="block";	
+			}
+
+			function hide_win() {
+				document.getElementById('losepopup').style.display="none";
+			}
+
+			function show_start() {
+				document.getElementById('startpopup').style.display="block";
+			}
+
+			function hide_start() {
+				document.getElementById('startpopup').style.display="none";
+			}
+
+			function click_start() {
+				document.getElementById('startpopup').style.display="none";
+				//move cursor to venter of a1
+			}
+
+			function click_start_over() {
+				document.getElementById('startpopup').style.display="block";
+				document.getElementById('losepopup').style.display="none";
+				document.getElementById('winpopup').style.display="none";
+				document.getElementById('cheatpopup').style.display="none";
+			}
+
+			function show_cheat() {
+				document.getElementById('cheatpopup').style.display="block"
+			}
+
+			function hide_cheat() {
+				document.getElementById('cheatpopup').style.display="none"
+			}
 
 
+		</script>
+	</head>
+	<body>
+		<div class="MazeBox" onMouseDown="show_cheat()">
+			<div id="MazeBorders" onMouseOver="show_lose()">
+			</div>
+<!--A COLUMN-->
+			<div id="a1" class="cells" style="background-color:#64FF96;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:0px;
+											top:5px;">
+			</div>
+			<div id="a2" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:5px;
+											top:50px;">
+			</div>
+			<div id="a3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:5px;
+											top:100px;">
+			</div>
+			<div id="a4" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:5px;
+											top:150px;">
+			</div>
+			<div id="a5" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:5px;
+											top:200px;">
+			</div>
+			<div id="a6" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:5px;
+											top:250px;">
+			</div>
+			<div id="a7" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:5px;
+											top:300px;">
+			</div>
+			<div id="a8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:5px;
+											top:350px;">
+			</div>
+			<div id="a9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:5px;
+											top:400px;">
+			</div>
+			<div id="a10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:5px;
+											top:450px;">
+			</div>
+<!--B COLUMN-->
+			<div id="b1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:5px;">
+			</div>
+			<div id="b2" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:50px;">
+			</div>
+			<div id="b3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:100px;">
+			</div>
+			<div id="b4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:55px;
+											top:150px;">
+			</div>
+			<div id="b5" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:200px;">
+			</div>
+			<div id="b6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:55px;
+											top:250px;">
+			</div>
+			<div id="b7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:300px;">
+			</div>
+			<div id="b8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:350px;">
+			</div>
+			<div id="b9" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:55px;
+											top:400px;">
+			</div>
+			<div id="b10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:55px;
+											top:450px;">
+			</div>
+<!--C COLUMN-->
+			<div id="c1" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:5px;">
+			</div>
+			<div id="c2" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:105px;
+											top:50px;">
+			</div>
+			<div id="c3" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:100px;">
+			</div>
+			<div id="c4" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:150px;">
+			</div>
+			<div id="c5" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:105px;
+											top:200px;">
+			</div>
+			<div id="c6" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:250px;">
+			</div>
+			<div id="c7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:300px;">
+			</div>
+			<div id="c8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:350px;">
+			</div>
+			<div id="c9" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:400px;">
+			</div>
+			<div id="c10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:105px;
+											top:450px;">
+			</div>
+<!--D COLUMN-->
+			<div id="d1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:5px;">
+			</div>
+			<div id="d2" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:155px;
+											top:50px;">
+			</div>
+			<div id="d3" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:155px;
+											top:100px;">
+			</div>
+			<div id="d4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:150px;">
+			</div>
+			<div id="d5" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:200px;">
+			</div>
+			<div id="d6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:155px;
+											top:250px;">
+			</div>
+			<div id="d7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:300px;">
+			</div>
+			<div id="d8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:350px;">
+			</div>
+			<div id="d9" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:400px;">
+			</div>
+			<div id="d10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:155px;
+											top:450px;">
+			</div>
+<!--E COLUMN-->
+			<div id="e1" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:40px;
+											position:absolute;
+											left:205px;
+											top:5px;">
+			</div>
+			<div id="e2" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:205px;
+											top:50px;">
+			</div>
+			<div id="e3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:205px;
+											top:100px;">
+			</div>
+			<div id="e4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:205px;
+											top:150px;">
+			</div>
+			<div id="e5" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:205px;
+											top:200px;">
+			</div>
+			<div id="e6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:205px;
+											top:250px;">
+			</div>
+			<div id="e7" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:205px;
+											top:300px;">
+			</div>
+			<div id="e8" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:205px;
+											top:350px;">
+			</div>
+			<div id="e9" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:205px;
+											top:400px;">
+			</div>
+			<div id="e10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:205px;
+											top:450px;">
+			</div>
+<!--F COLUMN-->
+			<div id="f1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:255px;
+											top:5px;">
+			</div>
+			<div id="f2" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:255px;
+											top:50px;">
+			</div>
+			<div id="f3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:255px;
+											top:100px;">
+			</div>
+			<div id="f4" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:255px;
+											top:150px;">
+			</div>
+			<div id="f5" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:255px;
+											top:200px;">
+			</div>
+			<div id="f6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:255px;
+											top:250px;">
+			</div>
+			<div id="f7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:255px;
+											top:300px;">
+			</div>
+			<div id="f8" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:255px;
+											top:350px;">
+			</div>
+			<div id="f9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:255px;
+											top:400px;">
+			</div>
+			<div id="f10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:255px;
+											top:450px;">
+			</div>
+<!--G COLUMN-->
+			<div id="g1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:40px;
+											position:absolute;
+											left:305px;
+											top:5px;">
+			</div>
+			<div id="g2" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:305px;
+											top:50px;">
+			</div>
+			<div id="g3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:305px;
+											top:100px;">
+			</div>
+			<div id="g4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:305px;
+											top:150px;">
+			</div>
+			<div id="g5" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:305px;
+											top:200px;">
+			</div>
+			<div id="g6" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:305px;
+											top:250px;">
+			</div>
+			<div id="g7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:305px;
+											top:300px;">
+			</div>
+			<div id="g8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:305px;
+											top:350px;">
+			</div>
+			<div id="g9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:305px;
+											top:400px;">
+			</div>
+			<div id="g10" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:305px;
+											top:450px;">
+			</div>
+<!--H COLUMN-->
+			<div id="h1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:40px;
+											position:absolute;
+											left:355px;
+											top:5px;">
+			</div>
+			<div id="h2" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:355px;
+											top:50px;">
+			</div>
+			<div id="h3" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:355px;
+											top:100px;">
+			</div>
+			<div id="h4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:355px;
+											top:150px;">
+			</div>
+			<div id="h5" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:355px;
+											top:200px;">
+			</div>
+			<div id="h6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:355px;
+											top:250px;">
+			</div>
+			<div id="h7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:355px;
+											top:300px;">
+			</div>
+			<div id="h8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:355px;
+											top:350px;">
+			</div>
+			<div id="h9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:355px;
+											top:400px;">
+			</div>
+			<div id="h10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:355px;
+											top:450px;">
+			</div>
+<!--I COLUMN-->
+			<div id="i1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:40px;
+											position:absolute;
+											left:405px;
+											top:5px;">
+			</div>
+			<div id="i2" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:405px;
+											top:50px;">
+			</div>
+			<div id="i3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:405px;
+											top:100px;">
+			</div>
+			<div id="i4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:405px;
+											top:150px;">
+			</div>
+			<div id="i5" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:405px;
+											top:200px;">
+			</div>
+			<div id="i6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:405px;
+											top:250px;">
+			</div>
+			<div id="i7" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:405px;
+											top:300px;">
+			</div>
+			<div id="i8" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:405px;
+											top:350px;">
+			</div>
+			<div id="i9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:405px;
+											top:400px;">
+			</div>
+			<div id="i10" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:405px;
+											top:450px;">
+			</div>
+<!--J COLUMN-->
+			<div id="j1" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:455px;
+											top:5px;">
+			</div>
+			<div id="j2" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:455px;
+											top:50px;">
+			</div>
+			<div id="j3" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:455px;
+											top:100px;">
+			</div>
+			<div id="j4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:455px;
+											top:150px;">
+			</div>
+			<div id="j5" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:455px;
+											top:200px;">
+			</div>
+			<div id="j6" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:455px;
+											top:250px;">
+			</div>
+			<div id="j7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:455px;
+											top:300px;">
+			</div>
+			<div id="j8" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:50px;
+											position:absolute;
+											left:455px;
+											top:350px;">
+			</div>
+			<div id="j9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:455px;
+											top:400px;">
+			</div>
+			<div id="j10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:455px;
+											top:450px;">
+			</div>
+<!--K COLUMN-->
+			<div id="k1" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:40px;
+											position:absolute;
+											left:505px;
+											top:5px;">
+			</div>
+			<div id="k2" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:505px;
+											top:50px;">
+			</div>
+			<div id="k3" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:505px;
+											top:100px;">
+			</div>
+			<div id="k4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:505px;
+											top:150px;">
+			</div>
+			<div id="k5" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:505px;
+											top:200px;">
+			</div>
+			<div id="k6" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:505px;
+											top:250px;">
+			</div>
+			<div id="k7" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:505px;
+											top:300px;">
+			</div>
+			<div id="k8" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:505px;
+											top:350px;">
+			</div>
+			<div id="k9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:505px;
+											top:400px;">
+			</div>
+			<div id="k10" class="cells" style="background-color:white;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:505px;
+											top:450px;">
+			</div>
+<!--L COLUMN-->
+			<div id="l1" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:555px;
+											top:5px;">
+			</div>
+			<div id="l2" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:555px;
+											top:50px;">
+			</div>
+			<div id="l3" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:555px;
+											top:100px;">
+			</div>
+			<div id="l4" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:555px;
+											top:150px;">
+			</div>
+			<div id="l5" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:555px;
+											top:200px;">
+			</div>
+			<div id="l6" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:555px;
+											top:250px;">
+			</div>
+			<div id="l7" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:555px;
+											top:300px;">
+			</div>
+			<div id="l8" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:50px;
+											position:absolute;
+											left:555px;
+											top:350px;">
+			</div>
+			<div id="l9" class="cells" style="background-color:white;
+											z-index:3;
+											width:45px;
+											height:45px;
+											position:absolute;
+											left:555px;
+											top:400px;">
+			</div>
+			<div id="l10" class="cells" style="background-color:#FF8182;
+											z-index:3;
+											width:50px;
+											height:45px;
+											position:absolute;
+											left:555px;
+											top:450px;"
+							onMouseOver="show_win()">
+			</div>
 
-</body>
+		</div>
+
+<!--POPUP CODE -->
+<div id="winpopup">
+    <div rel="body">
+        <div style="font-size:25px;">
+            <p>Congratulations, You Won!</p>
+        </div>
+    </div>
+    <div rel="buttons">
+        <button class="btn" onClick="click_start_over();">Start Over</button>
+    </div>
+</div>
+
+<div id="losepopup">
+    <div rel="body">
+        <div style="font-size:25px;">
+            <p>I'm sorry; You lost!</p>
+        </div>
+    </div>
+    <div rel="buttons">
+        <button class="btn" onClick="click_start_over();">Start Over</button>
+    </div>
+</div>
+
+<div id="startpopup">
+    <div rel="body">
+        <div style="font-size:25px;">
+            <p>Let's Get Started! Click to begin:</p>
+        </div>
+    </div>
+    <div rel="buttons">
+        <button class="btn" onClick="click_start();">Start</button>
+    </div>
+</div>
+
+<div id="cheatpopup"  onMouseUp="hide_cheat()">
+    <div rel="body">
+        <div style="font-size:25px;">
+            <p>Hey! Don't be cheating, now!</p>
+        </div>
+    </div>
+</div>
+
+
+	</body>
 </html>
