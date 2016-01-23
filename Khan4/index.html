@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Challenge: Mad Libs</title>
+ </head>
+ <body>
+ 
+    <h1>Mad Libs</h1>
+     
+    <ul>
+      <li>Noun: <input type="text" id="noun"></li>
+      <li>Adjective: <input type="text" id="adjective"></li>
+      <li>Someone's Name: <input type="text" id="person"></li>
+    </ul>
+     
+    <button id="lib-button">Lib it!</button>
+      
+    <p>Generated story: 
+    <span id="story"></span>
+    </p>
+ 
+    <script>
+        var libButton = document.getElementById('lib-button');
+        var libIt = function() {
+            var storyDiv = document.getElementById("story");
+            
+            var NounEl = document.getElementById("noun").value;
+            var AdjectiveEl = document.getElementById("adjective").value;
+            var PersonEl = document.getElementById("person").value;
+            
+            storyDiv.innerHTML = "Once upon a time, there was a simple computer programmer named " + PersonEl + ". He was  taking a very simple Khan Academy Course online, and was told that he needed to write a " + NounEl + " about something he had never written about before. After many long, long, long minutes of thinking about what kinds of " + NounEl + "s to come up with, " + PersonEl + " decided to do something much more simple. Typing away at the keyboard like the " + AdjectiveEl + " computer ninja " + PersonEl + " truly was, the " + NounEl + " finally came to life, and the webpage was created. Finally, Khan Academy let " + PersonEl + "advance to the next section.";
+        };
+        libButton.addEventListener('click', libIt);
+        
+    </script>
+  
+ </body>
+</html>
