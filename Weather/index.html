@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<title>City Finder</title>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
+		<link href='style.css' rel='stylesheet' type='text/css'>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	</head>
+<body>
+<!-- CenterBox -->
+	<div id="CenterBox">
+		<h1>Enter A Utah City:</h1>
+		<br>
+		<form>
+			<input type="text" id="cityfield" autocomplete="off" value="">
+			<br>
+			<table id="SuggestionTable">
+				<tr>
+					<td style="vertical-align:top;font-size:15px;text-align:right;" width="50%">Suggestions:</td>
+					<td id="txtHint" style="vertical-align:top;font-size:15px;text-align:left;" width="50%">None</td>
+				</tr>
+			</table>
+			<input class="btn" id="button" type="submit" value="Submit">
+		</form>
+		<p>Weather For: <textarea id="dispcity" style="width:250px;height:30px;border:3px solid #fff;padding:1px;font-size:20px;">No City</textarea></p>
+		<p>Current Weather:</p>
+		<div style="width:400px margin: 0 auto;"><table id="weather"></table></div>
+	</div>
+
+	<script>
+		$(document).ready(function(){
+<!-- Centering CenterBox on page load-->
+			$('#CenterBox').css({
+				position:'absolute',
+				left: ($(window).width() - $('#CenterBox').outerWidth())/2,
+				top: ($(window).height() - $('#CenterBox').outerHeight())/2
+			});
+<!-- Centering CenterBox on window resize-->
+			$(window).resize(function(){
+				$('#CenterBox').css({
+					position:'absolute',
+					left: ($(window).width() - $('#CenterBox').outerWidth())/2,
+					top: ($(window).height() - $('#CenterBox').outerHeight())/2
+				});
+			});
+
+<!-- JSON Script -->
+			$("#cityfield").keyup(function() {
+			  	var url = "https://students.cs.byu.edu/~clement/CS360/ajax/getcity.cgi?q="+$("#cityfield").val();
+				$.getJSON(url,function(data) {
+   					var everything;
+  					everything = "<ul>";
+  					$.each(data, function(i,item) {
+   					everything += "<li> "+data[i].city;
+  					});
+  					everything += "</ul>";
+  					$("#txtHint").html(everything);
+  					console.log('everything');
+  				});
+			});
+
+<!-- Put City into textarea upon 'Submit' -->
+			$("#button").click(function(e){
+				var value = $("#cityfield").val();
+				console.log(value);
+				e.preventDefault();
+				$("#dispcity").text(value);
+				
+<!-- Put city into weather underground URL and parse data from JSON object -->
+				var myurl= "https://api.wunderground.com/api/0aabf8dad01ae92e/geolookup/conditions/q/UT/";
+				myurl += value;
+				myurl += ".json";
+				console.log(myurl);
+				$.ajax({
+					url : myurl,
+				    dataType : "jsonp",
+				    success : function(parsed_json) {
+					    var location = parsed_json['location']['city'];
+					    var temp_string = parsed_json['current_observation']['temperature_string'];
+					    var current_weather = parsed_json['current_observation']['weather'];
+					    everything = "<tr><td>Location:</td><td>"+location+"</td></tr>";
+					    everything += "<tr><td>Temperature: </td><td>"+temp_string+"</td></tr>";
+					    everything += "<tr><td>Weather: </td><td>"+current_weather+"</td></tr>";
+					    $("#weather").html(everything);
+					    if(current_weather==="Mostly Cloudy"){
+					    	$('body').css({'background-image':'url(Images/mostlycloudy.jpg)'});
+						}
+						else if(current_weather==="Partly Cloudy"){
+					    	$('body').css({'background-image':'url(Images/partlycloudy.jpg)'});
+						}
+						else if(current_weather==="Clear" || "Scattered Clouds"){
+					    	$('body').css({'background-image':'url(Images/clear.jpg)'});
+						}
+						else if(current_weather==="Chance of Rain"){
+					    	$('body').css({'background-image':'url(Images/chanceofrain.jpg)'});
+						}
+						else if(current_weather==="Overcast"){
+					    	$('body').css({'background-image':'url(Images/overcast.jpg)'});
+						}
+						else if(current_weather=== "Light Snow" || "Heavy Snow" || "Light Snow Mist" || "Snow" || "Freezing Rain"){
+					    	$('body').css({'background-image':'url(Images/snow.jpg)'});
+						}
+						else if(current_weather=== "Light Rain" || "Light Rain Mist"){
+					    	$('body').css({'background-image':'url(Images/lightrain.jpg)'});
+						}
+						else if(current_weather=== "Rain" || "Heavy Rain Mist" || "Heavy Rain"){
+					    	$('body').css({'background-image':'url(Images/heavyrain.jpg)'});
+						}
+						else if(current_weather=== "Haze" || "Fog" || "Light Fog"){
+					    	$('body').css({'background-image':'url(Images/fog.jpg)'});
+						}
+						else if(current_weather=== "Thunderstorm" || "Chance of Thunderstorm" || "Lightning" || "Stormy" || "Hail"){
+					    	$('body').css({'background-image':'url(Images/storm.jpg)'});
+						}
+						else {
+							$('body').css({'background-image':'url(Images/cloudysky.jpg)'});
+						}
+
+<!-- Centering CenterBox on info load-->
+						$('#CenterBox').css({
+							position:'absolute',
+							left: ($(window).width() - $('#CenterBox').outerWidth())/2,
+							top: ($(window).height() - $('#CenterBox').outerHeight())/2
+						});
+				    }
+	  			});
+			});
+		});
+	</script>
+</body>
+</html>

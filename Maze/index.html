@@ -1,0 +1,809 @@
+
+<html>
+	<head>
+	<!-- Our CSS -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- Linked Lato Font -->
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<!-- Our Javascript -->
+		<script type="text/javascript">
+		var wallTouch = 0;
+		function lose(){
+			if (wallTouch === 0){
+				document.getElementById("info").innerHTML = "Hm. That's not good. Better luck next time...";
+				document.getElementById('losepopup').style.display="block";	
+				wallTouch = 1;
+			}
+		}
+		
+		function begin(){
+			document.getElementById("info").innerHTML = "Don't hit any walls...";
+			document.getElementById('startpopup').style.display="none";
+			document.getElementById('startGate').style.backgroundColor="#b0a18e"
+			wallTouch = 0;
+		}
+		
+		function win(){
+			if (wallTouch === 0){
+				document.getElementById("info").innerHTML = "Somebody's going to be rich...";
+				document.getElementById('winpopup').style.display="block";		
+				wallTouch = 2;
+			}
+		}
+
+		function show_win() {
+			document.getElementById('winpopup').style.display="block";
+		}
+		function hide_win() {
+			document.getElementById('winpopup').style.display="none";
+		}
+		function show_lose() {
+				document.getElementById('losepopup').style.display="block";	
+		}
+		function hide_win() {
+			document.getElementById('losepopup').style.display="none";
+		}
+		function show_start() {
+			document.getElementById('startpopup').style.display="block";
+		}
+		function hide_start() {
+			document.getElementById('startpopup').style.display="none";
+		}
+		function click_start() {
+			document.getElementById('startpopup').style.display="none";
+		}
+		function click_start_over() {
+			document.getElementById('losepopup').style.display="none";
+			document.getElementById('winpopup').style.display="none";
+			document.getElementById('startpopup').style.display="block";
+			document.getElementById('startGate').style.backgroundColor="#262216"
+		}
+
+		</script>
+	</head>
+	<body>
+
+			<div class="header">
+				<div class="header" >
+				<h1>The Maze</h1>
+				</div>
+
+			</div>
+		<div id="wrap">
+				<div id="information" style="width:400px;
+												height:50px;
+												position:relative;
+												background-color:#49412c;
+												padding:5px 10px 5px 10px;
+												z-index:2">
+					<p id="info">Help the little man find treasure!</p>
+				</div>
+
+				<div class="MazeBox" style="background-color:b0a18e;
+											z-index:1;
+											width:605px;
+											height:500px;
+											position:absolute;
+											top:210px;
+											margin:0 auto;
+											z-index:1">
+				
+				
+			<!--Start Gate-->
+
+					<div id="startGate" onmouseenter="begin()"
+												style="background-color:#262216;
+														z-index:5;
+														width:45px;
+														height:45px;
+														position:absolute;
+														left:5px;
+														top:5px;">
+					</div><p style="position:absolute;left:13px;top:5px;font-size:14px;z-index:6">Start</p>
+					
+					
+			<!--End Gate-->
+
+					<div id="finishGate" onmouseenter="win()"
+												style="background-image:url('treasure.png');
+												width:50px;
+												height:45px;
+												position:absolute;
+												left:555px;
+												top:450px;">
+					</div>									
+												
+												
+			<!--Border-->
+					<div id="topBorder" onmouseenter="lose()"
+										style="background-color:black;
+												z-index:2;
+												width:605px;
+												height:5px;
+												position:absolute;
+												left:0px;
+												top:0px;">
+					</div>
+					
+					<div id="leftBorder" onmouseenter="lose()"
+											style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:450px;
+												position:absolute;
+												left:0px;
+												top:50px;">
+					</div>
+					
+					<div id="rightBorder" onmouseenter="lose()"
+											style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:500px;
+												position:absolute;
+												left:600px;
+												top:0px;">
+					</div>
+					
+					<div id="bottomBorder" onmouseenter="lose()"
+											style="background-color:black;
+												z-index:2;
+												width:605px;
+												height:5px;
+												position:absolute;
+												left:0px;
+												top:495px;">
+					</div>
+			<!--POPUPS -->
+					<div id="winpopup">
+					    <div rel="body">
+					        <div style="padding:50px; font-size:25px;">
+					            <p>Congratulations, You Won! We Owe You...</p>
+					        </div>
+					    </div>
+					    <div rel="buttons">
+					    	<button class="btn" onClick="window.open('https://github.com/lucienb/CS201Git/tree/master/Maze','_blank');" >Claim Your Treasure</button>
+					        <button class="btn" onClick="click_start_over();">Start Over</button>
+					    </div>
+					</div>
+
+					<div id="losepopup">
+					    <div rel="body">
+					        <div style="padding:25px; font-size:25px;line-height:50%">
+					            <p style="font-size:80px;font-weight:bold;">Ooh... </p><br>
+					            <p>You've GOTTA stop running into walls like that.</p>
+					        </div>
+					    </div>
+					    <div rel="buttons">
+					        <button class="btn" onClick="click_start_over();">Start Over</button>
+					    </div>
+					</div>
+
+					<div id="startpopup">
+					    <div rel="body">
+					        <div style="padding:50px; font-size:25px;line-height:200%">
+					            <p><br><br>Let's Get Started!<br> Move your cursor to the Start box to begin.</p>
+					        </div>
+					    </div>
+					</div>
+					
+					
+			<!--Maze-->
+
+			<!--Row 1-->
+
+					<div id="a1"  onmouseenter="lose()"
+											style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:50px;
+												top:0px;">
+					</div>
+
+					
+					<div id="a2"  onmouseenter="lose()"
+												style="background-color:black;
+												z-index:2;
+												width:105px;
+												height:5px;
+												position:absolute;
+												left:0px;
+												top:95px;">
+					</div>
+
+					<div id="a3" onmouseenter="lose()"
+										style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:100px;
+												top:50px;">
+					</div>
+					
+					<div id="a4" onmouseenter="lose()"
+										style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:150px;
+												position:absolute;
+												left:150px;
+												top:0px;">
+					</div>
+					
+					<div id="a5" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:205px;
+												top:45px;">
+					</div>
+					
+					<div id="a6" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:100px;
+												position:absolute;
+												left:250px;
+												top:0px;">
+					</div>
+					
+					<div id="a7" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:150px;
+												height:5px;
+												position:absolute;
+												left:250px;
+												top:95px;">
+					</div>
+					
+					<div id="a8" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:150px;
+												height:5px;
+												position:absolute;
+												left:305px;
+												top:45px;">
+					</div>
+					
+					<div id="a9" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:450px;
+												top:45px;">
+					</div>
+					
+					<div id="a10" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:450px;
+												top:95px;">
+					</div>
+					
+					<div id="a11" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:500px;
+												top:0px;">
+					</div>
+					
+					<div id="a12" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:500px;
+												top:45px;">
+					</div>
+					
+					<div id="a13" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:55px;
+												position:absolute;
+												left:550px;
+												top:45px;">
+					</div>
+					
+			<!--Row 2-->
+
+					<div id="b1" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:0px;
+												top:195px;">
+					</div>
+					
+					<div id="b2" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:100px;
+												height:5px;
+												position:absolute;
+												left:55px;
+												top:145px;">
+					</div>
+					
+					<div id="b3" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:100px;
+												top:145px;">
+					</div>
+					
+					<div id="b4" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:100px;
+												height:5px;
+												position:absolute;
+												left:100px;
+												top:195px;">
+					</div>
+					
+					<div id="b5" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:100px;
+												position:absolute;
+												left:200px;
+												top:100px;">
+					</div>
+					
+					<div id="b6" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:100px;
+												height:5px;
+												position:absolute;
+												left:250px;
+												top:145px;">
+					</div>
+					
+					<div id="b7" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:250px;
+												position:absolute;
+												left:250px;
+												top:145px;">
+					</div>
+					
+					<div id="b8" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:350px;
+												top:145px;">
+					</div>
+					
+					<div id="b9" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:305px;
+												top:195px;">
+					</div>
+					
+					<div id="b10" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:200px;
+												position:absolute;
+												left:400px;
+												top:95px;">
+					</div>
+					
+					<div id="b11" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:400px;
+												top:195px;">
+					</div>
+					
+					<div id="b12" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:450px;
+												top:150px;">
+					</div>
+					
+					<div id="b13" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:105px;
+												position:absolute;
+												left:500px;
+												top:95px;">
+					</div>
+					
+					<div id="b14" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:500px;
+												top:150px;">
+					</div>
+					
+					<div id="b15" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:100px;
+												position:absolute;
+												left:550px;
+												top:150px;">
+					</div>
+
+			<!--Row 3-->
+
+					<div id="c1" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:50px;
+												top:195px;">
+					</div>
+					
+					<div id="c2" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:50px;
+												top:295px;">
+					</div>
+					
+					<div id="c3" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:50px;
+												top:245px;">
+					</div>
+					
+					<div id="c4" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:100px;
+												top:245px;">
+					</div>
+					
+					<div id="c5" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:100px;
+												top:295px;">
+					</div>
+					
+					<div id="c6" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:150px;
+												top:245px;">
+					</div>
+					
+					<div id="c7" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:200px;
+												top:245px;">
+					</div>
+					
+					<div id="c8" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:200px;
+												top:295px;">
+					</div>
+					
+					<div id="c9" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:100px;
+												position:absolute;
+												left:300px;
+												top:195px;">
+					</div>
+					
+					<div id="c10" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:150px;
+												top:245px;">
+					</div>
+					
+					<div id="c11" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:105px;
+												height:5px;
+												position:absolute;
+												left:300px;
+												top:295px;">
+					</div>
+					
+					<div id="c12" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:350px;
+												top:245px;">
+					</div>
+					
+					<div id="c13" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:100px;
+												height:5px;
+												position:absolute;
+												left:450px;
+												top:245px;">
+					</div>
+				
+					<div id="c14" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:250px;
+												position:absolute;
+												left:450px;
+												top:245px;">
+					</div>
+					
+					<div id="c15" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:100px;
+												height:5px;
+												position:absolute;
+												left:500px;
+												top:295px;">
+					</div>
+					
+			<!--Row 4-->
+
+					<div id="d1" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:200px;
+												height:5px;
+												position:absolute;
+												left:0px;
+												top:345px;">
+					</div>
+
+					<div id="d2" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:205px;
+												height:5px;
+												position:absolute;
+												left:50px;
+												top:395px;">
+					</div>		
+					
+					<div id="d3" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:55px;
+												position:absolute;
+												left:50px;
+												top:395px;">
+					</div>
+					
+					<div id="d4" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:150px;
+												height:5px;
+												position:absolute;
+												left:300px;
+												top:345px;">
+					</div>
+					
+					<div id="d5" style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:105px;
+												position:absolute;
+												left:300px;
+												top:345px;">
+					</div>
+					
+					<div id="d6" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:100px;
+												position:absolute;
+												left:350px;
+												top:395px;">
+					</div>
+					
+					<div id="d7" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:400px;
+												top:395px;">
+					</div>
+					
+					<div id="d7" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:400px;
+												top:395px;">
+					</div>
+					
+					
+					<div id="d8" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:500px;
+												top:345px;">
+					</div>
+					
+					<div id="d9" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:100px;
+												position:absolute;
+												left:550px;
+												top:345px;">
+					</div>
+					
+					<div id="d10" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:50px;
+												height:5px;
+												position:absolute;
+												left:500px;
+												top:395px;">
+					</div>
+					
+					<div id="d11" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:5px;
+												height:50px;
+												position:absolute;
+												left:500px;
+												top:395px;">
+					</div>
+					
+			<!-- Row 5-->		
+				
+					<div id="e1" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:200px;
+												height:5px;
+												position:absolute;
+												left:100px;
+												top:445px;">
+					</div>
+					
+					<div id="e2" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:55px;
+												height:5px;
+												position:absolute;
+												left:350px;
+												top:445px;">
+					</div>
+					
+					<div id="e2" onmouseenter="lose()"
+										 style="background-color:black;
+												z-index:2;
+												width:55px;
+												height:5px;
+												position:absolute;
+												left:550px;
+												top:445px;">
+					</div>
+				</div>
+		</div>
+
+		<div class="footer">
+			<div class="wrap">
+				<table id="footertext" align="right" style="padding:10px;color:white;text-align:right;font-size:12px" width="100%">
+						<tr style="padding:10px; text-align:right">
+							<td width="70%" valign="top" rowspan="3" style="font-size:14px">Made by:</td>
+							<td style="padding-right:15%">Spencer Browning</td>
+						</tr>
+						<tr>
+							<td style="padding-right:15%">Jonathan Sanborn</td>
+						</tr>
+						<tr>
+							<td style="padding-right:15%">Lucien Briscoe</td>
+						</tr>
+					</table>
+
+			</div>
+		</div>
+
+
+	<!--LUCIEN CODE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-->
+				
+				
+	</body>
+</html>
