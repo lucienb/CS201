@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  	<title>Angular Avatars</title>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	  	<meta charset="utf-8">
+	  	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	  	<link href='https://fonts.googleapis.com/css?family=Candal' rel='stylesheet' type='text/css'>
+	  	<link href='https://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
+	  	<link href='https://fonts.googleapis.com/css?family=Cuprum' rel='stylesheet' type='text/css'>
+	  	<link rel="stylesheet" type="text/css" href="style.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+
+	<body>
+		<div class="header-cont" ng-app='app' ng-controller='mainCtrl'>
+			<div class="header">
+			 	<h1>Users dashboard</h1>
+			</div>
+
+			<div class="content">
+				<h3>Create a new user</h3>
+			
+			 	<form class='form-group' name='userForm' ng-submit='addNew(userForm)'>
+					<input class='form-control' placeholder='Name (Required)' ng-model='userForm.name' required/>
+					<input class='form-control' placeholder='Image Url' ng-model='userForm.url'/>
+					<button class='btn btn-default' type='submit'>Add User</button>
+			 	</form>
+
+				<div class='avatarBox' ng-repeat='user in users'>
+			  		<button type="button" ng-click='removeUser(user)' class="close">
+			  			<span>x</span>
+			  		</button>
+			  		<avatar user='user'></avatar>
+				</div>
+
+			</div>
+		
+		</div>
+
+	</body>
+</html>

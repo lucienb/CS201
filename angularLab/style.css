@@ -1,0 +1,60 @@
+body {
+  text-align: center;
+  font-family: 'Candal', sans-serif;
+}
+
+.User-list {
+  list-style: none;
+}
+
+.header-cont {
+    width:100%;
+    position:fixed;
+    top:0px;
+}
+.header {
+    height:70px;
+    background:#F0F0F0;
+    border:1px solid #CCC;
+    width:700;
+    margin:0px auto;
+}
+.content {
+    width:700px;
+    background: #F0F0F0;
+    border: 1px solid #CCC;
+    height: 600px;
+    margin: 70px auto;
+    overflow-y: auto;
+}
+
+.avatar {
+  text-align: center;  
+}
+
+.avatar img {
+  height: 150px;
+  border-radius: 25px;
+}
+
+.avatar h4 {
+  text-transform: capitalize;
+  color: gray;
+}
+
+.form-group {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-control {
+  font-family: 'PT Serif', serif;
+}
+
+.avatarBox {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Cuprum', sans-serif;
+}
